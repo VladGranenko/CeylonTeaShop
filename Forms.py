@@ -45,6 +45,7 @@ class GenerateReportForm(FlaskForm):
     finish_date = DateField('До:', format='%Y-%m-%d', validators=[DataRequired()])
     submit_rpt = SubmitField('Створити')
 
+
 class ChangeNodeForm(FlaskForm):
     name = StringField('Назва:', validators=[
                         Length(min=4, max=50, message='Довжина назви повинна бути від 4 до 50 символів.')]

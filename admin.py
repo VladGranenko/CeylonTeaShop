@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 #
 from Forms import ChangeNodeForm, GenerateReportForm
 from models_pack import dBase, ProductsAndServices
-from invoices import handler_income_inv, make_invoice, make_report_range, check_nodes_range
+from invoices import make_income_inv, check_invoice, make_report_range, check_nodes_range
 #
 from io import BytesIO
 
@@ -18,10 +18,34 @@ Admin = Blueprint('admin', __name__, template_folder='templates', static_folder=
 def show_admin_panel():
     gnt_form = GenerateReportForm()
     products = dBase.session.query(ProductsAndServices).order_by(ProductsAndServices.is_product).all()
-
     return render_template(
               'admin.html',  products=products, title="Admin-Panel", gnt_form=gnt_form
     )
+
+@Admin.route('/load-excel', methods=["GET", "POST"])
+@login_required
+def load_excel():
+    excel_file = request.files['excel-file']
+    if excel_file.filename.endswith('.xlsx') or excel_file.filename.endswith('.xls'):
+        upload_folder = 'excel_invoices'
+        file_path = os.path.join(upload_folder, 'excel_file.xlsx')
+        excel_file.save(file_path)
+        try:
+            if check_invoice(excel_file):
+                dBase.session.bulk_insert_mappings(ProductsAndServices, make_income_inv(excel_file))
+                dBase.session.commit()
+                os.remove(file_path)
+                #
+                flash("Данi успiшно доданi", category="lucky")
+                return redirect(url_for('admin.show_admin_panel'))
+            else:
+                flash("Файл не вiдповiдае вимогам внесення записiв ", category="unlucky")
+        except IntegrityError:
+            flash("Необхiдно заповнити усi данi.", category="unlucky")
+            return redirect(url_for('admin.show_admin_panel'))
+    else:
+        flash("Формат файлу мае бути у форматi .xlsx або .xls", category="unlucky")
+    return redirect(url_for('admin.show_admin_panel'))
 
 
 @Admin.route('/generate_report', methods=["GET", "POST"])
@@ -45,32 +69,6 @@ def generate_report():
     else:
         flash('Кiнцева дата повинна опереджувати початкову', category="unlucky")
     #
-    return redirect(url_for('admin.show_admin_panel'))
-
-
-@Admin.route('/load-excel', methods=["GET", "POST"])
-@login_required
-def load_excel():
-    excel_file = request.files['excel-file']
-    if excel_file.filename.endswith('.xlsx') or excel_file.filename.endswith('.xls'):
-        upload_folder = 'excel_invoices'
-        file_path = os.path.join(upload_folder, 'excel_file.xlsx')
-        excel_file.save(file_path)
-        try:
-            if make_invoice(excel_file):
-                dBase.session.bulk_insert_mappings(ProductsAndServices, handler_income_inv(excel_file))
-                dBase.session.commit()
-                os.remove(file_path)
-                #
-                flash("Данi успiшно доданi", category="lucky")
-                return redirect(url_for('admin.show_admin_panel'))
-            else:
-                flash("Файл не вiдповiдае вимогам внесення записiв ", category="unlucky")
-        except IntegrityError:
-            flash("Необхiдно заповнити усi данi.", category="unlucky")
-            return redirect(url_for('admin.show_admin_panel'))
-    else:
-        flash("Формат файлу мае бути у форматi .xlsx або .xls", category="unlucky")
     return redirect(url_for('admin.show_admin_panel'))
 
 

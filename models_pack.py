@@ -4,6 +4,27 @@ from flask_sqlalchemy import SQLAlchemy
 
 dBase = SQLAlchemy()
 
+
+# Модель для таблицы "Клiенти"
+class Customers(UserMixin, dBase.Model):
+    __tablename__ = 'customers'
+
+    id = dBase.Column(dBase.Integer, primary_key=True)
+    email = dBase.Column(dBase.String(255), nullable=False)
+    password = dBase.Column(dBase.String(20), nullable=False)
+    time = dBase.Column(dBase.DateTime, default=datetime.utcnow())
+    authenticated = dBase.Column(dBase.Boolean)
+
+    def __init__(self, email, password):
+        super(Customers, self).__init__()
+        self.email = email
+        self.password = password
+        self.authenticated = False
+
+    def get_id(self):
+        return str(self.id)
+
+
 # Модель для таблицi "Товари та Послуги"
 class ProductsAndServices(dBase.Model):
     __tablename__ = 'products_and_services'
@@ -20,6 +41,7 @@ class ProductsAndServices(dBase.Model):
     income_invoice_rel = dBase.relationship('IncomeInvoices', back_populates='products_rel')
     def __repr__(self):
         return f"Назва: {self.name}, price: {self.price}, quantity: {self.quantity}"
+
 
 # Модель для таблицы "Прибутковi накладнi"
 class IncomeInvoices(dBase.Model):
@@ -66,22 +88,3 @@ class Suppliers(dBase.Model):
     name = dBase.Column(dBase.String(255), nullable=False, unique=True)
     contact_email = dBase.Column(dBase.String(255), nullable=True)
 
-
-# Модель для таблицы "Клiенти"
-class Customers(UserMixin, dBase.Model):
-    __tablename__ = 'customers'
-
-    id = dBase.Column(dBase.Integer, primary_key=True)
-    email = dBase.Column(dBase.String(255), nullable=False)
-    password = dBase.Column(dBase.String(20), nullable=False)
-    time = dBase.Column(dBase.DateTime, default=datetime.utcnow())
-    authenticated = dBase.Column(dBase.Boolean)
-
-    def __init__(self, email, password):
-        super(Customers, self).__init__()
-        self.email = email
-        self.password = password
-        self.authenticated = False
-
-    def get_id(self):
-        return str(self.id)
