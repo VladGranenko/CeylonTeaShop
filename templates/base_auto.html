@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up-style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/root-pack.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media-width.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="lineDecorateLeft">
+        </div>
+          {% block login %}{% endblock %}
+          {% block sign_up %}{% endblock %}
+        <div class="lineDecorateRight">
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='js/Errors.js')}}"></script>
+</body>
+</html>

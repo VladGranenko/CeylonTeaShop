@@ -1,0 +1,87 @@
+* {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+html { font-size: 14px; }
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container-image{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgb(0, 0, 0);
+}
+
+.container-image img {
+    width: 75%;
+    height: 100%;
+    object-fit:fill;
+    filter: hue-rotate(85deg) contrast(140%);
+}
+
+.container-image main{
+    position: absolute;
+    width: 25%;
+    right: 0;
+    height: 100%;
+    background: var(--gradient-block-background);
+    text-shadow: var(--text-shadow);
+    box-shadow: var(--box-shadow);
+}
+
+.container-image h1{
+    position: absolute;
+    width: 75%;
+    text-align: center;
+    font-size: 6rem;
+    top: 30%;
+    z-index: 1;
+    color: transparent;
+    -webkit-text-stroke: 4px rgb(10, 243, 243);
+    letter-spacing: 6px;
+    text-shadow: 0 2px 5px rgba(1, 49, 49, 0.678);
+}
+
+main h2{
+    text-align: center;
+    color: rgb(68, 174, 245);
+    font-size: 3rem;
+    margin: 50px 0;
+    text-shadow: 0 1px 7px rgba(111, 1, 255, 0.63);
+}
+
+main div{
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px 0;
+    border-top: 5px solid rgb(0, 189, 157);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+main a {
+    width: 50%;
+    font-size: 3rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: rgb(93, 250, 190);
+    margin: 20px;
+    transition: all 0.5s ease;
+    text-shadow: 0 2px 10px rgb(50, 50, 50);
+}
+
+main a:first-child { color: var(--font-color-orange); }
+main a:hover {
+    color: rgb(40, 231, 231);
+    transform: translateX(6px);
+}

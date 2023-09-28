@@ -1,0 +1,255 @@
+* {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    font-size: 14px;
+    text-shadow: var(--text-shadow);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    overflow-y: scroll;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(8deg, rgb(12, 24, 46) 35%,rgb(19, 70, 82) 77%);
+
+}
+
+.container .main {
+    width: 80%;
+    height: 1220px;
+    margin-left: 10%;
+    padding: 0;
+    background: rgba(187, 239, 255, 0.1);
+    box-shadow: var(--box-shadow-neon);
+}
+
+.container .main .header {
+    display: grid;
+    width: 80%;
+    margin-left: 10%;
+    grid-template-columns: 80% 20%;
+    padding-top: 30px;
+    font-size: 3rem;
+    color: var(--font-color-orange);
+    text-align: center;
+    align-items: center;
+    letter-spacing: 5px;
+}
+
+.container .main .header h2{
+    color: transparent;
+    -webkit-text-stroke: 2px var(--font-color-select);
+    text-shadow: 0 1px 5px rgba(255,200,255,0.1);
+    text-align: left;
+}
+
+.generate-report,
+.load-excel {
+    width: 80%;
+    margin-left: 10%;
+    padding: 20px;
+    background: var(--gradient-form);
+    box-shadow: var(--box-shadow);
+    font-size: 2.2rem;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.load-excel form {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main .header a:last-child,
+.load-excel form input[type='submit'],
+.load-excel form label,
+.generate-report form input {
+    cursor: pointer;
+    text-shadow: var(--text-shadow);
+    color: var(--font-color-blue);
+    padding: 2px 20px;
+    background: var(--gradient-block);
+    box-shadow: var(--box-shadow);
+    border: var(--border-lightblue);
+    text-align: center;
+    align-items:center;
+    font-weight: 600;
+    outline: none;
+}
+
+.load-excel form label:hover,
+.main .list-products .table button:hover,
+.generate-report form input:hover,
+.container .main .header a:hover,
+.load-excel form input[type='submit']:hover,
+.main .list-products .table .td a:hover,
+.main .list-products .table .th a:hover {
+    background: var(--color-input-back);
+}
+
+.load-excel form input[type="file"] { display: none; }
+
+.container .main .header a:last-child{
+    text-decoration: none;
+    width: 80%;
+    margin-left: 20%;
+    color: var(--font-color-select);
+    font-size: 2.5rem;
+}
+
+.load-excel form input[type='submit']{
+    font-size: 2.2rem;
+    color: var(--font-color-select);
+}
+
+                       /*  ----------------- GENERATE REPORT ----------------- */
+
+.generate-report h1 {
+    text-align: center;
+    color: var(--font-color-orange);
+    margin-bottom: 30px;
+    letter-spacing: 10px;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.generate-report form {
+    display: flex;
+    flex-direction: column;
+}
+
+.generate-report .trigger-time {
+    width: 80%;
+    margin-left: 10%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.generate-report form .trigger-time div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.generate-report form  .trigger-time div:last-child { padding-left: 100px; }
+.generate-report form .trigger-time div:first-child { padding-right: 100px; }
+.generate-report form label                         { color: var(--font-color-lightgreen); }
+.generate-report form input                         {
+                                                        cursor: pointer;
+                                                        font-size: 2rem;
+                                                        padding: 5px;
+}
+
+.generate-report form .report-btn {
+    margin-top: 40px;
+    font-weight: 600;
+    width: 80%;
+    margin-left: 10%;
+    color: var(--font-color-select);
+
+}
+                            /* ----------------- LIST PRODUCT ----------------- */
+
+.container .main .list-products {
+    position: relative;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 100px;
+    color: var(--font-color-orange);
+    font-size: 1.7rem;
+}
+
+.list-products h1 {
+    color: var(--font-color-lightgreen);
+    margin: 30px 0;
+    text-align: center;
+}
+
+.main .list-products .table {
+    box-shadow: var(--box-shadow-neon);
+    font-weight: 600;
+}
+
+.main .list-products .table .th,
+.main .list-products .table .td {
+    width: 100%;
+    height: 10%;
+    display: grid;
+    grid-template-columns: 5% 5% 20% 9% 9% 15% 11% 25%;
+    text-align: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.list-products .table { border: var(--border-lightblue); }
+.list-products .tbody {
+    border-top: 20px solid rgb(20,20,20,0.1);
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.list-products .tbody::-webkit-scrollbar       { width: 2px; }
+.list-products .tbody::-webkit-scrollbar-thumb { background-color: var(--font-color-blue); }
+
+.list-products .th label,
+.list-products .td p,
+.list-products .td label{
+    overflow-x: hidden;
+    color: var(--font-color-select);
+    padding: 20px 5px;
+    text-align: center;
+    border: var(--border-lightblue);
+}
+
+.list-products .th label { border: 2px solid var(--font-color-blue); }
+.list-products .th label:last-child { padding: 19px 5px; }
+.list-products .table .td p{
+    border: var(--border-lightblue);
+    padding: 5px;
+    color: var(--font-color-orange);
+}
+.list-products .table .td p:first-child { color: var(--font-color-blue); }
+
+.main .list-products .table .th a,
+.main .list-products .table .td a {
+    display:block;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: red;
+    font-weight: 600;
+    text-shadow: var(--text-shadow);
+    background: var(--gradient-block);
+    justify-self: center;
+    align-self: center;
+    border: var(--border-lightblue);
+    text-decoration: none;
+}
+
+.td a { width: 90%; }
+.th a { width: 100%; }
+
+.main .list-products .table .td div {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 50% 50%;
+    justify-content: space-between;
+    justify-items: center;
+    border: var(--border-lightblue);
+}
+.main .list-products .table .td div form { width: 100%; }

@@ -1,0 +1,14 @@
+{% extends "admin_base.html" %}
+{% block delete_nodes %}
+    <div class="main delete">
+        <div class="block-delete">
+            <p>Ви впевнені, що бажаєте видалити запис: {{ name_object }}?</p>
+            <div>
+                <a href="{{ url_for('admin.show_admin_panel') }}">Назад</a>
+                <form action="{{ url_for('admin.delete_nodes', product_id = id_object) }}" method="post">
+                    <button type="submit">Так, видалити</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

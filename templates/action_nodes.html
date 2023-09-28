@@ -1,0 +1,48 @@
+{% extends "admin_base.html" %}
+{% block change_nodes %}
+<div class="main change">
+    <div class="form-change-nodes">
+        <h1>{{ title }}</h1>
+        <form action="{{ url_for('admin.action_nodes', product_id = id_object) }}" method="post">
+            {{ form.hidden_tag() }}
+            <div>
+                <label>{{ form.name.label() }}</label>
+                {{ form.name() }}
+            </div>
+            <div>
+                <label>{{ form.price.label() }}</label>
+                {{ form.price() }}
+            </div>
+            <div>
+                <label>{{ form.quantity.label() }}</label>
+                {{ form.quantity() }}
+            </div>
+            <div>
+                <label>{{ form.supplier.label() }}</label>
+                {{ form.supplier() }}
+            </div>
+            <div>
+                <label>{{ form.definition.label() }}</label>
+                {{ form.definition() }}
+            </div>
+            <div>
+                <label>{{ form.is_product.label() }}</label>
+                {{ form.is_product(class="radio_box") }}
+            </div>
+            <div class="bth-block">
+                <a href="{{ url_for('admin.show_admin_panel') }}">Назад</a>
+                {{ form.submit(value=button_form) }}
+            </div>
+        </form>
+    </div>
+    <div class="error-field-add">
+        {% for field in form %}
+        {% if field.errors %}
+        {% for error in field.errors %}
+        <p class="invalid-field">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

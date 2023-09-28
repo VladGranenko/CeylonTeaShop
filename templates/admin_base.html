@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/block-pack.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/root-pack.css') }}">
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <div class="container">
+              {% block admin_panel  %}{% endblock %}
+              {% block delete_nodes %}{% endblock %}
+              {% block change_nodes %}{% endblock %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{{url_for('static', filename='js/errors.js')}}"></script>
+        <script src="{{url_for('static', filename='js/admin.js')}}"></script>
+        <script src="{{url_for('static', filename='js/logout_handler.js')}}"></script>
+    </body>
+</html>

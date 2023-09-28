@@ -1,0 +1,73 @@
+{% extends "admin_base.html" %}
+
+{% block admin_panel %}
+    <div class="main">
+        <div class="header">
+            <h2>Admin-Panel</h2>
+            <a href="{{ url_for('logout') }}">Виxiд</a>
+        </div>
+        <div class="load-excel">
+            <form action="{{ url_for('admin.load_excel') }}" method="post" enctype="multipart/form-data">
+
+                <input type="file" name="excel-file" class="btn-load-excel" id="file-input">
+                <label class="btn-load-excel-label" for="file-input"> Завантажити</label>
+                <input type="submit" value="Додати">
+            </form>
+        </div>
+        <div class="generate-report">
+            <h1>Утворити звiт про продажi</h1>
+            <form action="{{ url_for('admin.generate_report') }}" method="post">
+                <div class="trigger-time">
+                    <div>
+                        {{ gnt_form.start_date.label() }}
+                        {{ gnt_form.start_date() }}
+                    </div>
+                    <div>
+                        {{ gnt_form.finish_date.label() }}
+                        {{ gnt_form.finish_date() }}
+                    </div>
+                </div>
+                {{ gnt_form.submit_rpt(class="report-btn") }}
+            </form>
+        </div>
+        <div class="list-products">
+            {% block delete %}{% endblock %}
+            <div class="message-block-admin">
+                {% for cat, msg in get_flashed_messages(True) %}
+                    <p class="message {{ cat }}">{{ msg }}</p>
+                {% endfor %}
+            </div>
+            <h1>Список товарiв та послуг</h1>
+            <div class="table">
+                <div class="th">
+                    <label><|></label>
+                    <label>ID</label>
+                    <label>Назва</label>
+                    <label>Вартість</label>
+                    <label>Кількість</label>
+                    <label>Постачальники</label>
+                    <label>is_товар</label>
+                    <label><a href="{{ url_for('admin.action_nodes', product_id = None) }}">Додати</a></label>
+                </div>
+                <div class="tbody">
+                    {% for product in products %}
+                    <div class="td">
+                        <p>{{ loop.index }}</p>
+                        <p>{{ product.id }}</p>
+                        <p>{{ product.name }}</p>
+                        <p>{{ product.price }}</p>
+                        <p>{{ product.quantity }}</p>
+                        <p>{{ product.supplier }}</p>
+                        <p>{{ product.is_product }}</p>
+                        <div>
+                            <a href="{{ url_for('admin.action_nodes', product_id=product.id) }}">Змiнити</a>
+                            <a href="{{ url_for('admin.delete_nodes', product_id=product.id) }}">Видалити</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {{ old }}
+        </div>
+    </div>
+{% endblock %}

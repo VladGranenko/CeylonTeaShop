@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Shop_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/root-pack.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}">
+    <title>User-shop</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="head-block">
+                <header>Ceylon Tea Shop</header>
+                <a href="{{ url_for('logout') }}">Виxiд</a>
+            </div>
+            <div class="form-get-products">
+                {% for cat, msg in get_flashed_messages(True) %}
+                <div class="flash-shop message">
+                    <h2 class="header {{ cat }}">{{ msg }}</h2>
+                </div>
+                {% endfor %}
+                <h2>Виберiть продукт</h2>
+                <form action="{{ url_for('process_product_form') }}" method='post'>
+                    {{ product_form.hidden_tag() }}
+                    <div>
+                        {{ product_form.name_product.label() }}
+                            <a href="#" class="info-product-box">?</a>
+                        {{ product_form.name_product(id="productSelect") }}
+                    </div>
+                    <div>
+                        <label>Вартiсть:</label>
+                        <p class="price-view" id="priceProductDisplay">{{ price }}</p>
+                    </div>
+                    <div>
+                        {{ product_form.quantity_product.label() }}
+                        {{ product_form.quantity_product(id='quantity-input') }}
+                    </div>
+                    <div class="submit-service-block">
+                        <p></p>
+                        {{ product_form.submit_name(class='quantity-btn') }}
+                    </div>
+                </form>
+                <section class="info-product-line"><p>{{ definition }}</p></section>
+            </div>
+            <div class="select-service">
+                <form action="{{ url_for('process_service_form') }}" method="post">
+                    {{ service_form.hidden_tag() }}
+                    {{ service_form.name_service.label() }}
+                    {{ service_form.name_service(id='serviceSelect') }}
+                    <p id="priceServiceDisplay" class="price-service">{{ price }}</p>
+                    <a href='#' class="info-service-box">?</a>
+                    {{ service_form.submit_service(class='service-btn') }}
+                </form>
+                <section class="info-service-line">
+                    <p>{{ definition }}</p>
+                </section>
+            </div>
+            <div class="select-user-product">
+                <h1>Товари у вашому кошику </h1>
+                <div class="th-selected">
+                    <label>№</label>
+                    <label>Назва</label>
+                    <label>Вартiсть</label>
+                    <label>Кiлькiсть</label>
+                </div>
+                <div class="td-selected">
+                    {% if backet_pack %}
+                        {% for item in backet_pack %}
+                        <div class="td">
+                            <p>{{ loop.index }}</p>
+                            <p>{{ item.name_item }}</p>
+                            <p>{{ item.price_item }}</p>
+                            <p>{{ item.quantity_item }}</p>
+                            <div class="btn-pack">
+                                <input type="button" value="cancel" data-id="{{ item.id }}" class="delete-button">
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <h3>Кошик зараз пустий</h3>
+                    {% endif %}
+                </div>
+                <div class="total-check">
+                    <p></p>
+                    <p>{{ total_price }}</p>
+                    <p class="total_quantity">{{ total_quantity }}</p>
+                    {% if backet_pack %}
+                        <input type="button" value="Купити" class="btn-buy">
+                    {% else %}
+                    <p></p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="invoices-block">
+                <div class="question-block">
+                    <p>Бажаєте завантажити звіт продажi у форматі .pdf?</p>
+                    <div>
+                        <a href="{{ url_for('HandlerFIFO', name='other')}}">До магазину</a>
+                        <a href="{{ url_for('HandlerFIFO', name='load')}}" id="load-pdf-file">Завантажити</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{url_for('static', filename='js/shop.js')}}"></script>
+    <script src="{{url_for('static', filename='js/errors.js')}}"></script>
+    <script src="{{url_for('static', filename='js/logout_handler.js')}}"></script>
+
+
+</body>
+
+</html>

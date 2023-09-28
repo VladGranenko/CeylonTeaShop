@@ -1,0 +1,34 @@
+{% extends "base_auto.html" %}
+    {% block login %}
+    <main>
+        <form action="{{ url_for('loginUser') }}" method="post">
+        {{  form_login.hidden_tag() }}
+            <div class="message-block">
+                {% for cat, msg in get_flashed_messages(True) %}
+                    <p class="message {{ cat }}">{{ msg }}</p>
+                {% endfor %}
+            </div>
+            {% for field in form_login if field.name not in ['csrf_token', 'submit'] %}
+                  <div>
+                      {{ field.label() }}
+                      {{ field() }}
+                  </div>
+            {% endfor %}
+            <div class="buttons">
+                <a href="{{ url_for('StartView') }}">Додому</a>
+                    {{  form_login.submit(class='button-sign') }}
+            </div>
+        </form>
+        <div class="error-field-login">
+            {% for field in form_login %}
+                {% if field.errors %}
+                    <p class="invalid-field">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% endfor %}
+        </div>
+    </main>
+    {% endblock %}

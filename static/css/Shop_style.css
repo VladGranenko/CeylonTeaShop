@@ -1,0 +1,386 @@
+
+* {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    font-size: 14px;
+    text-shadow: var(--text-shadow);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+.info { position:absolute; }
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shop-background);
+    overflow: hidden;
+}
+
+.container .main {
+    position: relative;
+    width: 70%;
+    height: 100%;
+    margin-left: 15%;
+    background: rgba(187, 239, 255, 0.1);
+    box-shadow: var(--box-shadow);
+}
+
+.main .form-get-products,
+.main .select-user-product,
+.main .select-service,
+.main .form-invoice {
+    position: relative;
+    margin-top: 20px;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    font-weight: 600;
+    background: var(--gradient-form);
+    align-items: center;
+    box-shadow: var(--box-shadow);
+}
+
+.main .form-get-products form { width: 100%; }
+
+header,
+.main .select-user-product h1,
+.main .form-get-products h2 {
+    font-size: 2.5rem;
+    color: var(--font-color-lightgreen);
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    border-bottom: var(--border-header);
+    font-weight: 600;
+}
+.head-block{
+    width: 80%;
+    margin-left: 10%;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    align-items: center;
+    padding-top: 30px;
+}
+header {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--font-color-select);
+    text-shadow: 0 1px 5px rgba(255,200,255,0.1);
+    font-size: 4rem;
+    border: none;
+    text-align: left;
+}
+
+.main .form-get-products div {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    margin: 10px 5%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main .select-service form .info-service-box,
+.main .form-get-products .info-product-box{
+    position: absolute;
+    right: 42%;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 8px;
+}
+
+.form-get-products div:last-child {
+    width: 100%
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+}
+
+.main .form-get-products div input,
+.main .form-get-products div p,
+.main .form-get-products div select {
+    width: 40%;
+    height: 100%;
+    text-align: right;
+}
+
+.main .form-get-products div p { height: 40px; }
+.main .form-get-products div p { padding-right: 15px;}
+
+.main .select-service .price-service,
+.main .select-service .info-service-box,
+.main .form-get-products .info-product-box,
+.main .head-block a,
+.main input,
+.main .price-view,
+.main input[type="button"],
+.main select,
+.main .total-check .btn-buy,
+.main .invoices-block a{
+    color: var(--font-color-blue);
+    font-size: 2rem;
+    background: var(--gradient-block);
+    box-shadow: var(--box-shadow);
+    border: var(--border-lightblue);
+    text-shadow: var(--text-shadow);
+    outline: none;
+}
+
+.main input[type="button"],
+.main select,
+.main .total-check .btn-buy {
+    cursor: pointer;
+    height: 100%;
+    text-shadow: var(--text-shadow);
+    font-weight: 600;
+}
+
+.main .submit-service-block .quantity-btn{
+    cursor: pointer;
+    color: var(--font-color-select);
+    text-align: center;
+    width: 100%;
+    height: 90%;
+    font-weight: 600;
+}
+
+.form-get-products div:last-child div{
+    width: 30%;
+    align-items: center;
+    margin-left: 0;
+}
+
+.main .form-get-products div quantity-input { padding-right: 20px; }
+.main select { color: var(--font-color-orange); }
+
+.form-get-products div:last-child button{
+    margin-left: 20px;
+    width: auto;
+}
+
+.main .submit-service-block .quantity-btn:hover,
+.main .head-block a:hover,
+.main .select-service .info-service-box:hover,
+.main .form-get-products .info-product-box:hover,
+.main input[type="button"]:hover,
+.main .total-check .btn-buy:hover {
+    background: var(--color-input-back);
+}
+
+.main label { color: var(--font-color-orange);}
+
+.main .head-block a{
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    color: var(--font-color-select);
+    font-size: 3rem;
+}
+
+                                    /* Select Service */
+.main .select-service form{
+    width: 90%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.main .select-service { padding: 10px 0; }
+
+.main .select-service form {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 10% 25% 10% 40%;
+}
+.main .select-service .price-service{
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    align-items: center;
+}
+
+.main .select-service select{
+    text-align: right;
+    width: 100%;
+    height: 100%;
+}
+
+.main .select-service .service-btn{
+    cursor: pointer;
+    color: var(--font-color-select);
+    font-weight: 600;
+    width: 100%;
+}
+
+                                    /* User Cards*/
+.main .select-user-product{
+    position: relative;
+    height: 380px;
+}
+.td-selected{
+    width: 90%;
+    border: 1px solid var(--font-color-lightgreen);
+    border-top: 2px solid var(--font-color-lightgreen);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 200px;
+}
+
+.td-selected::-webkit-scrollbar { width: 4px; }
+.td-selected::-webkit-scrollbar-thumb { background-color: var(--font-color-blue); }
+.th-selected,
+.td-selected .td,
+.total-check {
+    box-shadow: var(--box-shadow);
+    display: grid;
+    align-items: center;
+    border: 2px solid;
+    color: var(--font-color-lightgreen);
+    width: 90%;
+    grid-template-columns: 6% 38% 18% 18% 20%;
+}
+.td-selected .td { width:      100%; }
+.th-selected     { margin-top: 10px; }
+
+.td-selected h3 {
+    width: 100%;
+    color: var(--font-color-orange);
+    margin-top: 10px;
+    text-align: center;
+}
+
+.select-user-product p,
+.select-user-product label {
+    border: 1px solid;
+    width: 97%;
+    text-align: center;
+    padding: 5px 5px;
+    margin: 1px;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.select-user-product label { border: 2px solid; }
+.main .select-user-product .td .btn-pack {
+    display: flex;
+    width: 90%;
+    margin-left: 5%;
+    padding: 2px 0;
+    justify-content: space-between;
+}
+
+.td-selected .btn-pack input[type="button"]{
+    width: 100%;
+    color: var(--font-color-orange);
+}
+
+.select-user-product .total-check {
+    color: var(--font-color-lightgreen);
+    grid-template-columns: 44% 18% 18% 20%;
+    padding: 8px 0;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+.main .total-check .btn-buy {
+    width: 90%;
+    margin-left: 5%;
+    color: var(--font-color-select);
+}
+
+                                    /* Info Block */
+.info-product-line { display: none; }
+.info-service-line { display: none; }
+
+.select-service .info-service-line,
+.form-get-products .info-product-line{
+    position: absolute;
+    overflow-y: scroll;
+    width: 50%;
+    height: 175px;
+    left: 20px;
+    top: 30%;
+    z-index: 1;
+    background: var(--gradient-shop-background);
+    color: rgb(10, 213, 223, 0.95);
+    backdrop-filter: blur(100px);
+    padding: 15px;
+    box-shadow: 0 0 50px 2px rgb(10, 203, 243, 0.15);
+}
+
+.form-get-products .info-product-line::-webkit-scrollbar,
+.select-service    .info-service-line::-webkit-scrollbar { width: 4px; }
+
+.form-get-products .info-product-line::-webkit-scrollbar-thumb,
+.select-service    .info-service-line::-webkit-scrollbar-thumb    {
+    background-color: var(--font-color-blue);
+}
+
+.form-get-products .info-product-line { top: 30%; }
+.select-service .info-service-line {
+    top: 60px;
+    width: 41.1%;
+    height: 200px;
+    left: 580px;
+}
+
+                                    /*  Download invoices */
+.main .invoices-block{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    backdrop-filter: blur(20px);
+}
+
+.main .invoices-block .question-block{
+    box-shadow: var(--box-shadow);
+    position: relative;
+    width: 68%;
+    margin-left: 16%;
+    height: 250px;
+    top: 25%;
+    background: var(--gradient-form);
+}
+
+.main .invoices-block .question-block p{
+    text-shadow: var(--text-shadow);
+    font-size: 2.2rem;
+    color: var(--font-color-orange);
+    text-align: center;
+    padding-top: 45px;
+    font-weight: 600;
+}
+
+.main .invoices-block .question-block div{
+    display: flex;
+    width: 90%;
+    margin-left: 5%;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+.main .invoices-block .question-block a {
+    color: var(--font-color-select);
+    width: 220px;
+    padding: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: var(--text-shadow);
+}

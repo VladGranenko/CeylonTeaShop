@@ -1,0 +1,164 @@
+
+.container .main.delete{
+    height: 925px;
+}
+
+/* Block Delete */
+.main.delete .block-delete{
+    display: block;
+    position: absolute;
+    margin-top: 15%;
+    width: 40%;
+    height: auto;
+    background: var(--gradient-block);
+    backdrop-filter: blur(300px);
+    box-shadow: var(--box-shadow-neon);
+    left: 30%;
+}
+
+.main.delete .block-delete p{
+    margin-top: 10px;
+    padding: 2% 5%;
+    width: 100%;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--font-color-orange);
+    white-space: normal;
+    overflow-x: hidden;
+}
+
+.main.delete .block-delete div{
+    position: relative;
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin: 5% 0;
+    margin-left: 5%;
+}
+.block-delete form{ width: 45%; }
+.block-delete div button, .block-delete div a{
+    cursor: pointer;
+    width: 100%;
+    font-size: 2rem;
+    background: var(--gradient-block);
+    color: var(--font-color-orange);
+    border: var(--border-lightblue);
+    padding: 5px 10px;
+    font-weight: 600;
+    text-shadow: var(--text-shadow);
+    box-shadow: var(--box-shadow);
+}
+
+.block-delete div a{
+    width: 45%;
+    text-decoration: none;
+    text-align: center;
+    color: var(--font-color-blue);
+}
+
+.container .block-delete button:hover,
+.block-delete div a:hover{
+    background: var(--gradient-background);
+    color: var(--font-color-lightgreen);
+    box-shadow: var(--box-shadow-neon);
+}
+
+/* Block Change */
+.container .main.change {
+    position: relative;
+    width: 50%;
+    height: 925px;
+    margin-left: 25%;
+    overflow: hidden;
+}
+
+.main.change .form-change-nodes{
+    position: absolute;
+    margin-top: 5%;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    background: var(--gradient-form);
+    align-items: center;
+    box-shadow: var(--box-shadow-neon);
+
+}
+.main.change .form-change-nodes form { width: 100%; }
+.main.change .form-change-nodes h1{
+    font-size: 3rem;
+    margin: 10px 0;
+    color: var(--font-color-orange);
+}
+.main.change .form-change-nodes form div{
+    display: flex;
+    width: 80%;
+    margin: 15px 0;
+    margin-left: 10%;
+    justify-content: space-between;
+}
+
+.main.change .form-change-nodes label{
+    color: var(--font-color-orange);
+    font-weight: 600;
+}
+
+.form-change-nodes input,
+.form-change-nodes a,
+.form-change-nodes textarea{
+    background: var(--gradient-block);
+    border: var(--border-lightblue);
+    font-size: 2rem;
+    color: var(--font-color-blue);
+    padding-left: 10px;
+    width: 45%;
+    font-weight: 600;
+    padding: 2px 0;
+    box-shadow: var(--box-shadow);
+    outline: none;
+}
+
+.form-change-nodes input {
+    text-align: right;
+     padding-right: 5px;
+}
+
+.form-change-nodes a{
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.form-change-nodes input[type="submit"]{
+    cursor: pointer;
+    color: var(--font-color-select);
+    text-align: center;
+}
+
+.form-change-nodes input[type="checkbox"]{ box-shadow: none; }
+
+.main.change .form-change-nodes form .bth-block{ margin-top: 40px ; }
+
+.form input[type="submit"]:hover,
+.form a:hover {
+    box-shadow: none;
+    background: var(--gradient-background);
+}
+
+.form-change-nodes input { padding-left: 10px; }
+
+.form-change-nodes textarea{
+    height: 8rem;
+    white-space: normal;
+    width: 70%;
+    padding: 5px;
+    padding-left: 10px;
+    resize: none;
+}
+.form-change-nodes textarea::-webkit-scrollbar{    width: 5px;}
+.form-change-nodes textarea::-webkit-scrollbar-thumb{
+    background-color: var(--font-color-blue);
+
+

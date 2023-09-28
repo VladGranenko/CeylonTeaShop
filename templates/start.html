@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="A wide selection of tea products.">
+    <meta name="keywords" content="Pu-erh tea">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/root-pack.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/start-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media-width.css') }}">
+
+    <title>Ceylon Tea Shop</title>
+</head>
+
+<body>
+    <div class="container-image">
+        <h1>Ceylon Tea Shop</h1>
+        <img src="{{ url_for('static', filename='images/im3.jpg') }}" alt="">
+        <main>
+            <h2>Welcome</h2>
+            <div>
+                <a href="{{ url_for('loginUser') }}">Login</a>
+                <a href="{{ url_for('sign_up') }}">Sign up</a>
+                <a href="#">Contact</a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

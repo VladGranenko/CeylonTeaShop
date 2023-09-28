@@ -1,0 +1,17 @@
+:root {
+    --box-shadow: 0 0 20px 6px rgba(10, 30, 50, 0.3);
+    --box-shadow-neon: 0 0 20px 3px rgba(0, 153, 255, 0.151);
+    --font-color-orange: rgb(255, 72, 0);
+    --color-input-back: rgba(78, 126, 134, 0.57);
+    --font-color-blue: rgb(100, 200, 250, 0.9);
+    --font-color-lightgreen: rgb(136, 207, 189);
+    --font-color-select: rgb(10, 223, 243);
+    --text-shadow: 0 1px 5px rgb(90, 2, 2);
+    --gradient-block: linear-gradient(25deg,rgba(56, 1, 27, 0.253) 20%,rgba(0, 255, 242, 0.192) 95%);
+    --gradient-form: linear-gradient(40deg,rgba(22, 91, 94, 0.589) 7%,rgba(32, 56, 58, 0.25) 99%);
+    --gradient-block-background: linear-gradient(0deg, rgb(0, 24, 16) 15%, rgb(1, 67, 83, 0.774) 77%);
+    --gradient-shop-background: linear-gradient(5deg, rgb(5, 34, 31) 15%, rgb(0, 90, 112) 77%);
+    --bottom-color-line: rgba(0, 25, 29, 0.801);
+    --border-header: 8px solid rgba(232, 240, 241, 0.1);
+    --border-lightblue: 1px solid rgba(0, 150, 150, 0.6);
+}

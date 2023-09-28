@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow:hidden;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    justify-items: center;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-block-background);
+}
+
+.container main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--gradient-form);
+    backdrop-filter: blur(500px);
+    animation: toScaleStart 1.5s;
+    box-shadow: var(--box-shadow-neon);
+}
+
+form{
+    font-size: 2rem;
+    width: 85%;
+    border-top: 4px solid rgba(0, 20, 30, 0.3);
+    border-bottom: 4px solid rgba(0, 20, 30, 0.3);
+    padding: 90px 0;
+    padding-bottom: 20px;
+    text-shadow: var(--text-shadow);
+}
+
+form div{
+    color: var(--font-color-orange);
+    display: flex;
+    margin: 15px 0;
+    justify-content: space-between;
+}
+form div label { font-weight: 600;}
+
+.buttons a,
+form .button-sign,
+form input{
+    cursor: pointer;
+    color: var(--font-color-orange);
+    font-size: 2rem;
+    padding: 2px 0;
+    background: var(--gradient-block);
+    border: var(--border-lightblue);
+    text-shadow: var(--text-shadow);
+    box-shadow: var(--box-shadow);
+    font-weight: 600;
+    align-self: center;
+    outline: none;
+}
+.buttons a{
+    width: 40%;
+    text-align: center;
+}
+form input{
+    cursor: text;
+    padding: 0 10px;
+    width: 50%;
+    font-weight: 500;
+    text-align: right;
+}
+
+form .button-sign{
+    text-align: center;
+ }
+.buttons a:hover,
+.button-sign:hover{
+    color: var(--font-color-blue);
+    background: var(--color-input-back);
+}
+
+.buttons .button-sign{ color: var(--font-color-select); }
+
+form .buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.buttons a { text-decoration: none; }
+
+.lineDecorateLeft,
+.lineDecorateRight{
+    width: 40%;
+    height: 100%;
+    box-shadow: var(--box-shadow-neon);
+}
+
+.lineDecorateLeft{
+    background: linear-gradient(55deg,rgb(5, 22, 27) 14%, rgba(28, 81, 105, 0.5)79.2%);
+    width: 50%;
+}
+.lineDecorateRight{
+    background: linear-gradient(55deg,rgb(65, 25, 61) 14%,rgba(20, 35, 49, 0.5)79.2%);
+}
+
+
+
+
+
