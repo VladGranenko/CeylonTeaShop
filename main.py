@@ -55,7 +55,7 @@ def sign_up():
             dBase.session.commit()
             flash('Успішна реєстрація', category='lucky')
             return redirect(url_for('loginUser'))
-
+        #
         except IntegrityError:
             dBase.session.rollback()
             flash('Помилка під час реєстрації. Можливо, такий користувач вже існує.', category='unlucky')
@@ -237,7 +237,7 @@ def process_service_form():
 
 @app.route('/handler_fifo', methods=['GET', 'POST'])
 @login_required
-def HandlerFIFO():
+def handler_fifo():
     answer = request.args.get('name', '')
     basket_items = dBase.session.query(CartItem).filter(CartItem.expense_invoice_id == None).all()
     # Запит для вилучення товарiв, вiдсортованих по датi надкадноi
@@ -281,10 +281,9 @@ def HandlerFIFO():
             return Response(
                             buffer.read(), mimetype='application/pdf',
                             headers={'Content-Disposition': 'attachment;filename=report.pdf'}
-            )
+                        )
         else:
             return redirect(url_for('ShopView'))
-    #
     return redirect(url_for('ShopView'))
 
 

@@ -60,12 +60,6 @@ $(document).ready(function() {
     });
 });
 
-var excludedUrls = [
-                    '/admin/admin-panel/delete/', '/admin/admin-panel/change/', '/admin/admin-panel/add_node',
-                    '/sign-up', '/login', '/logout', '/ceylon-tea', '/ceylon-tea-shop',
-                    '/process_product_form', '/process_service_form', '/handler_fifo', '/get_price',
-                    '/ceylon-tea-shop/delete/','/admin/admin-panel',
- ];
             /* INFO PRODUCT INVISIBLE */
 const infoProductLine = document.querySelector('.info-product-line');
 const infoProductBox = document.querySelector('.info-product-box');
@@ -103,13 +97,12 @@ function toggleLoadInvBlock() {
         loadInvBlock.style.display = 'none';
     }
 }
-
+                /* PRESS BUY BUTTON */
 if (btnBuy) {
     btnBuy.addEventListener('click', toggleLoadInvBlock);
 }
+                /* PRESS LOAD BUTTON */
 
 if (btnLoadExcel) {
     btnLoadExcel.addEventListener('click', toggleLoadInvBlock);
 }
-
-

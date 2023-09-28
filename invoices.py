@@ -18,8 +18,9 @@ from models_pack import dBase, ExpenseInvoices, ProductsAndServices, IncomeInvoi
 
 
 #------------------------------------------ ADMIN-PANEL ---------------------------------------------------#
+
 # ----------------------------------------- LOAD EXCEL  ---------------------------------------------------#
-def make_invoice(file_excel):
+def check_invoice(file_excel):
     model_field = ['name', 'price', 'quantity', 'supplier', 'is_product', 'definition']
     check_list = [False for _ in range(len(model_field))]
     #
@@ -30,8 +31,6 @@ def make_invoice(file_excel):
         for item in range(len(model_field)):
             if model_field[item] == column_names[item]:
                 check_list[item] = True
-            else:
-                check_list[item] = False
         #
         if all(check_list):
             name = data_excel[column_names[0]]
@@ -49,9 +48,9 @@ def make_invoice(file_excel):
         return False
 
 
-def handler_income_inv(file_excel):
-    if make_invoice(file_excel):
-        invoice = make_invoice(file_excel)
+def make_income_inv(file_excel):
+    if check_invoice(file_excel):
+        invoice = check_invoice(file_excel)
         existing_supplier = dBase.session.query(Suppliers).filter_by(name=invoice["supplier"][0]).first()
         if existing_supplier:
             new_supplier = existing_supplier
@@ -85,7 +84,7 @@ def handler_income_inv(file_excel):
     else:
         return False
 
-# ------------------------------------------ GENERATE REPORT  --------------------------------------------#
+# ------------------------------------------ GENERATE REPORT RANGE -----------------------------------------#
 
 def check_nodes_range(start_point, finish_point):
     # LIST EXPENSE INVOICES
@@ -95,12 +94,13 @@ def check_nodes_range(start_point, finish_point):
     ).all()
     #
     if list_exp_inv_range:
-        list_exp_inv_future = dBase.session.query(ExpenseInvoices).filter(
-            ExpenseInvoices.exp_invoice_date > finish_point
-        ).all()
         # LIST INCOME INVOICES
         list_income_inv = dBase.session.query(IncomeInvoices).filter(
             IncomeInvoices.inc_invoice_date <= finish_point
+        ).all()
+        #
+        list_exp_inv_future = dBase.session.query(ExpenseInvoices).filter(
+            ExpenseInvoices.exp_invoice_date > finish_point
         ).all()
         #
         dict_column, total_price = dict(), float()
@@ -113,7 +113,7 @@ def check_nodes_range(start_point, finish_point):
                                                     'Кiлькiсть': int(item.quantity_item),
                                                     'Сумма': float(item.quantity_item * item.price_item),
                                                     'Залишок товару': 0
-                }
+                                                }
                 elif item.name_item in dict_column.keys():
                     total_price += float(item.quantity_item * item.price_item)
                     dict_column[item.name_item]['Кiлькiсть'] += int(item.quantity_item)
@@ -141,7 +141,7 @@ def check_nodes_range(start_point, finish_point):
                                          dict_column[key]['Кiлькiсть'],
                                          dict_column[key]['Сумма'],
                                          dict_column[key]['Залишок товару']))) for key in dict_column.keys()
-        ]
+                        ]
         return list_from_dict
     else:
         return False
@@ -192,6 +192,7 @@ def make_report_range(start_date, finish_date, buffer):
 
 
 #------------------------------------------ SHOP-PANEL ---------------------------------------------------#
+
 # Set Font
 font_path = 'fonts/arial.ttf'
 pdfmetrics.registerFont(TTFont('ArialUnicode', font_path))
@@ -230,6 +231,7 @@ def make_expense_inv(buffer, id_inv):
     title_tbl_services = Paragraph('Лист послуг', pgph_style)
 
     #------------------------------------ TABLES -----------------------------------------------#
+
     full_quantity, full_price = 0, 0
     #
     list_service = [item.name for item in
@@ -266,6 +268,7 @@ def make_expense_inv(buffer, id_inv):
     table_service = Table(data_table_service, colWidths=col_widths)
 
     # ------------------------------------ SIGNATURE ------------------------------------#
+
     signature = [
         ['Замовник', 'Продавець', 'Загальна кількість', 'Загальна вартість'],
         [' ', ' ', str(full_quantity), str(full_price)]
