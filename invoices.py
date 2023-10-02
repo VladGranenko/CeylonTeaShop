@@ -47,7 +47,6 @@ def check_invoice(file_excel):
     else:
         return False
 
-
 def make_income_inv(file_excel):
     if check_invoice(file_excel):
         invoice = check_invoice(file_excel)
@@ -68,24 +67,33 @@ def make_income_inv(file_excel):
         dBase.session.add(new_invoice)
         dBase.session.commit()
         #
-        records_to_insert = []
+        records_current, records_history = list(), list()
         for index in range(invoice['length']):
-            record = {
+            # CURRENT RECORD
+            record_current_table = {
                 "name": invoice["name"][index],
                 "price": float(invoice["price"][index]),
                 "quantity": int(invoice["quantity"][index]),
                 "supplier": invoice["supplier"][index],
                 "is_product": invoice["is_product"][index],
                 'definition': invoice['definition'][index],
-                "invoice_id": new_invoice.id if invoice["is_product"][index] == True else 0
+                "invoice_id": new_invoice.id if invoice["is_product"][index] else 0
             }
-            records_to_insert.append(record)
-        return records_to_insert
+            records_current.append(record_current_table)
+            # HISTORY RECORD
+            if invoice["is_product"][index]:
+                record_history_table = {
+                    "name_hist": invoice["name"][index],
+                    "quantity_hist": int(invoice["quantity"][index]),
+                    "invoice_id": new_invoice.id
+                }
+                records_history.append(record_history_table)
+        return {'current': records_current, 'history': records_history}
     else:
         return False
 
-# ------------------------------------------ GENERATE REPORT RANGE -----------------------------------------#
 
+# ------------------------------------------ GENERATE REPORT RANGE -----------------------------------------#
 def check_nodes_range(start_point, finish_point):
     # LIST EXPENSE INVOICES
     list_exp_inv_range = dBase.session.query(ExpenseInvoices).filter(
@@ -99,8 +107,8 @@ def check_nodes_range(start_point, finish_point):
             IncomeInvoices.inc_invoice_date <= finish_point
         ).all()
         #
-        list_exp_inv_future = dBase.session.query(ExpenseInvoices).filter(
-            ExpenseInvoices.exp_invoice_date > finish_point
+        past_expense_invoice = dBase.session.query(ExpenseInvoices).filter(
+            ExpenseInvoices.exp_invoice_date < start_point
         ).all()
         #
         dict_column, total_price = dict(), float()
@@ -110,24 +118,26 @@ def check_nodes_range(start_point, finish_point):
                     dict_column.setdefault(item.name_item, dict())
                     total_price += float(item.quantity_item * item.price_item)
                     dict_column[item.name_item] = {
-                                                    'Кiлькiсть': int(item.quantity_item),
-                                                    'Сумма': float(item.quantity_item * item.price_item),
-                                                    'Залишок товару': 0
-                                                }
+                        'Кiлькiсть': int(item.quantity_item),
+                        'Сумма': float(item.quantity_item * item.price_item),
+                        'Залишок товару': int(item.quantity_item) * (-1)
+                    }
                 elif item.name_item in dict_column.keys():
                     total_price += float(item.quantity_item * item.price_item)
                     dict_column[item.name_item]['Кiлькiсть'] += int(item.quantity_item)
                     dict_column[item.name_item]['Сумма'] += float(item.quantity_item * item.price_item)
+                    dict_column[item.name_item]['Залишок товару'] += int(item.quantity_item) * (-1)
         #
         for invoice in list_income_inv:
-            for item in invoice.products_rel:
-                if item.name in dict_column.keys():
-                    dict_column[item.name]['Залишок товару'] += item.quantity
+            for item in invoice.history_rel:
+                if item.name_hist in dict_column.keys():
+                    dict_column[item.name_hist]['Залишок товару'] += int(item.quantity_hist)
         #
-        for invoice in list_exp_inv_future:
-            for item in invoice.expense_items:
-                if item.name_item in dict_column.keys():
-                    dict_column[item.name_item]['Залишок товару'] += item.quantity_item
+        if past_expense_invoice is not None:
+            for expense in past_expense_invoice:
+                for item in expense.expense_items:
+                    if item.name_item in dict_column.keys():
+                        dict_column[item.name_item]['Залишок товару'] -= int(item.quantity_item)
         #
         dict_column[' '] = {
             'Кiлькiсть': ' ',
@@ -135,13 +145,13 @@ def check_nodes_range(start_point, finish_point):
             'Залишок товару': ' '
         }
         list_from_dict = [
-                            dict(zip(['Назва', 'Кiлькiсть', 'Сумма', 'Залишок товару'],
-                                     (
-                                         key,
-                                         dict_column[key]['Кiлькiсть'],
-                                         dict_column[key]['Сумма'],
-                                         dict_column[key]['Залишок товару']))) for key in dict_column.keys()
-                        ]
+            dict(zip(['Назва', 'Кiлькiсть', 'Сумма', 'Залишок товару'],
+                     (
+                         key,
+                         dict_column[key]['Кiлькiсть'],
+                         dict_column[key]['Сумма'],
+                         dict_column[key]['Залишок товару']))) for key in dict_column.keys()
+        ]
         return list_from_dict
     else:
         return False

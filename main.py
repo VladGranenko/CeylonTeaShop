@@ -158,6 +158,7 @@ def process_product_form():
         session['update_value_qnt'] = {}
     #
     full_qnt, update_value_qnt = 0, session['update_value_qnt']
+
     #
     if product_form.validate_on_submit():
         products = dBase.session.query(ProductsAndServices).all()
@@ -240,38 +241,37 @@ def process_service_form():
 def handler_fifo():
     answer = request.args.get('name', '')
     basket_items = dBase.session.query(CartItem).filter(CartItem.expense_invoice_id == None).all()
-    # Запит для вилучення товарiв, вiдсортованих по датi надкадноi
-    products = (dBase.session.query(ProductsAndServices).join(
-               IncomeInvoices, ProductsAndServices.invoice_id == IncomeInvoices.id).filter(
-               ProductsAndServices.invoice_id != 0).order_by(IncomeInvoices.inc_invoice_date
-               ).all())
+    basket_item_names = {item.name_item for item in basket_items}
+    #
+    products = dBase.session.query(ProductsAndServices).join(
+        IncomeInvoices, ProductsAndServices.invoice_id == IncomeInvoices.id).filter(
+        ProductsAndServices.invoice_id != 0, ProductsAndServices.name.in_(basket_item_names)
+    ).order_by(IncomeInvoices.inc_invoice_date).all()
+
     basket_list = dict.fromkeys(
                                 [item.name_item for item in basket_items],
-                                {'availability': 0, 'exclude': False}
+                                {'quantity': 0, 'exclude': False}
     )
     if basket_items:
-        for key in basket_list.keys():
-            for product in products:
-                if key == product.name:
-                    basket_list[key]['availability'] += product.quantity  # increase value item
         # Expense Invoices
         exp_invoice = ExpenseInvoices(customer_id=current_user.id)
         dBase.session.add(exp_invoice)
         dBase.session.commit()
         #
-        for product in products:
-            for item in basket_items:
-                item.expense_invoice_id = exp_invoice.id
-                if item.name_item == product.name and item.quantity_item != 0 \
-                                                  and not basket_list[item.name_item]['exclude']:
-                    if item.quantity_item <= product.quantity:
-                        product.quantity -= item.quantity_item
+        for item in basket_items:
+            item.expense_invoice_id = exp_invoice.id
+            basket_list[item.name_item]['quantity'] = item.quantity_item
+            for product in products:
+                if item.name_item == product.name and not basket_list[item.name_item]['exclude']:
+                    if basket_list[item.name_item]['quantity'] <= product.quantity:
+                        product.quantity -= basket_list[item.name_item]['quantity']
+                        basket_list[item.name_item] = basket_list.get(item.name_item, {}).copy()
                         basket_list[item.name_item]['exclude'] = True
                     #
-                    elif item.quantity_item >= product.quantity:
-                        item.quantity_item -= product.quantity
+                    elif basket_list[item.name_item]['quantity'] >= product.quantity:
+                        basket_list[item.name_item]['quantity'] -= product.quantity
                         dBase.session.delete(product)
-        #
+                        continue
         dBase.session.commit()
         #
         if answer == 'load':
