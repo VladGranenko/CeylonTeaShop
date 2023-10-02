@@ -46,7 +46,7 @@ def create_excel(dictionary, name_file):
     df_first = pd.DataFrame(dictionary)
     df_first.to_excel(f"{name_file}.xlsx", index=False)
 
-# create_excel(products_and_services_2, name_file='product_coffee')
+# create_excel(products_and_services, name_file='product_coffee')
 
 
 

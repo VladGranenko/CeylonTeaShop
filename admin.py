@@ -4,7 +4,7 @@ from flask_login import login_required
 from sqlalchemy.exc import IntegrityError
 #
 from Forms import ChangeNodeForm, GenerateReportForm
-from models_pack import dBase, ProductsAndServices
+from models_pack import dBase, ProductsAndServices, HistoricalProducts
 from invoices import make_income_inv, check_invoice, make_report_range, check_nodes_range
 #
 from io import BytesIO
@@ -32,7 +32,15 @@ def load_excel():
         excel_file.save(file_path)
         try:
             if check_invoice(excel_file):
-                dBase.session.bulk_insert_mappings(ProductsAndServices, make_income_inv(excel_file))
+                # CURRENT RECORD
+                record_to_table = make_income_inv(excel_file)
+                dBase.session.bulk_insert_mappings(
+                    ProductsAndServices, record_to_table['current']
+                )
+                # HISTORY RECORD
+                dBase.session.bulk_insert_mappings(
+                    HistoricalProducts, record_to_table['history']
+                )
                 dBase.session.commit()
                 os.remove(file_path)
                 #

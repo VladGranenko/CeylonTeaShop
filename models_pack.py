@@ -42,6 +42,15 @@ class ProductsAndServices(dBase.Model):
     def __repr__(self):
         return f"Назва: {self.name}, price: {self.price}, quantity: {self.quantity}"
 
+# Модель для таблицi "Архівовані Товари"
+class HistoricalProducts(dBase.Model):
+    __tablename__ = 'historical_products'
+    id = dBase.Column(dBase.Integer, primary_key=True)
+    name_hist = dBase.Column(dBase.String(255), nullable=False)
+    quantity_hist = dBase.Column(dBase.Integer, nullable=False)
+    #
+    invoice_id = dBase.Column(dBase.Integer, dBase.ForeignKey('income_invoices.id'))
+    invoice_rel_hist = dBase.relationship('IncomeInvoices', back_populates='history_rel')
 
 # Модель для таблицы "Прибутковi накладнi"
 class IncomeInvoices(dBase.Model):
@@ -55,6 +64,7 @@ class IncomeInvoices(dBase.Model):
     supplier_id = dBase.Column(dBase.Integer, dBase.ForeignKey('suppliers.id'), nullable=False)
     supplier = dBase.relationship('Suppliers', backref='income_invoices')
     products_rel = dBase.relationship('ProductsAndServices', back_populates='income_invoice_rel')
+    history_rel = dBase.relationship('HistoricalProducts', back_populates='invoice_rel_hist')
 
 
 # Модель для таблицi "Видатковi накладнi"
